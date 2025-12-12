@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: nginx
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
     acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   ingressClassName: nginx
