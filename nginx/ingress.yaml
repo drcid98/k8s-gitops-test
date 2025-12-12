@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
+  namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
 spec:
@@ -19,6 +20,5 @@ spec:
             backend:
               service:
                 name: argocd-server
-                namespace: argocd
                 port:
                   number: 80
