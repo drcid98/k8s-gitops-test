@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/drcid98/k8s-gitops-test
+    repoURL: https://github.com/drcid98/k8s-gitops-test.git
     path: nginx
   destination:
     server: https://kubernetes.default.svc
