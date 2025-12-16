@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx
+  name: python-http
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: "selfsigned-cluster-issuer"
@@ -9,16 +9,16 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - nginx.test.local
+        - python-http.test.local
       secretName: nginx-cert
   rules:
-    - host: nginx.test.local
+    - host: python-http.test.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: nginx
+                name: python-http
                 port:
                   number: 80
