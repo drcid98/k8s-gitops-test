@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+      listen 80;
+      server_name _;
+
+      location / {
+        root /usr/share/nginx/html;
+        index index.html;
+      }
+
+      # Lists files in the mounted PVC at /test
+      location /test {
+        alias /usr/share/nginx/html/demo/;
+        autoindex on;
+        autoindex_exact_size off;
+        autoindex_localtime on;
+        index index.html;
+      }
+    }
+
+  custom-entrypoint.sh: |
+    #!/bin/sh
+    set -e
+
+    DATA_DIR="/usr/share/nginx/html/demo"
+    INDEX_FILE="${DATA_DIR}/index.html"
+
+    generate_index() {
+      mkdir -p "${DATA_DIR}"
+
+      files=$(ls -1 "${DATA_DIR}" 2>/dev/null | grep -v '^index\.html$' || true)
+
+      if [ -z "${files}" ]; then
+        cat > "${INDEX_FILE}" <<'EOF'
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Demo Volume</title>
+          </head>
+          <body>
+            <h1>Demo Volume</h1>
+            <p>No files in the mounted volume.</p>
+          </body>
+        </html>
+    EOF
+      else
+        {
+          echo "<!DOCTYPE html>"
+          echo "<html><head><title>Demo Volume</title></head><body>"
+          echo "<h1>Files in the mounted volume</h1><ul>"
+          for f in ${files}; do
+            esc=$(printf '%s\n' "${f}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g')
+            echo "<li><a href=\"${esc}\">${esc}</a></li>"
+          done
+          echo "</ul></body></html>"
+        } > "${INDEX_FILE}"
+      fi
+    }
+
+    generate_index
+    # Refresh the listing periodically so changes show up without a restart.
+    while true; do
+      sleep 5
+      generate_index
+    done &
+
+    exec nginx -g "daemon off;"
+
