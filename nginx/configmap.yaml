@@ -21,22 +21,33 @@ data:
         autoindex_localtime on;
         index index.html;
       }
+
+      # Lists files in a second mounted PVC at /test2
+      location /test2 {
+        alias /usr/share/nginx/html/demo2/;
+        autoindex on;
+        autoindex_exact_size off;
+        autoindex_localtime on;
+        index index.html;
+      }
     }
 
   custom-entrypoint.sh: |
     #!/bin/sh
     set -e
 
-    DATA_DIR="/usr/share/nginx/html/demo"
-    INDEX_FILE="${DATA_DIR}/index.html"
+    DATA_DIRS="/usr/share/nginx/html/demo /usr/share/nginx/html/demo2"
 
-    generate_index() {
-      mkdir -p "${DATA_DIR}"
+    # Generates an index.html for each configured data directory.
+    generate_index_for() {
+      dir="$1"
+      index_file="${dir}/index.html"
+      mkdir -p "${dir}"
 
-      files=$(ls -1 "${DATA_DIR}" 2>/dev/null | grep -v '^index\.html$' || true)
+      files=$(ls -1 "${dir}" 2>/dev/null | grep -v '^index\.html$' || true)
 
       if [ -z "${files}" ]; then
-        cat > "${INDEX_FILE}" <<'EOF'
+        cat > "${index_file}" <<'EOF'
         <!DOCTYPE html>
         <html>
           <head>
@@ -58,8 +69,14 @@ data:
             echo "<li><a href=\"${esc}\">${esc}</a></li>"
           done
           echo "</ul></body></html>"
-        } > "${INDEX_FILE}"
+        } > "${index_file}"
       fi
+    }
+
+    generate_index() {
+      for dir in ${DATA_DIRS}; do
+        generate_index_for "${dir}"
+      done
     }
 
     generate_index
