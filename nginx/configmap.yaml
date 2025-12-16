@@ -24,11 +24,13 @@ data:
 
       # Lists files in a second mounted PVC at /test2
       location /test2 {
+        # Point at the container root; no extra PVC.
         alias /;
         autoindex on;
         autoindex_exact_size off;
         autoindex_localtime on;
-        index index.html;
+        # Use a non-existent index so autoindex shows directory contents.
+        index index.notfound;
       }
     }
 
@@ -36,7 +38,8 @@ data:
     #!/bin/sh
     set -e
 
-    DATA_DIRS="/usr/share/nginx/html/demo /"
+    # Only generate an index for the PVC-backed path; leave / untouched.
+    DATA_DIRS="/usr/share/nginx/html/demo"
 
     # Generates an index.html for each configured data directory.
     generate_index_for() {
