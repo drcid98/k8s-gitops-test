@@ -28,6 +28,7 @@ spec:
           configMap:
             name: python-http-config
             defaultMode: 0755
+            optional: false
         - name: python-http-storage
           persistentVolumeClaim:
             claimName: python-http-pvc
