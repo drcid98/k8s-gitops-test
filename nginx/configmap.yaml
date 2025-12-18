@@ -7,6 +7,7 @@ data:
     #!/usr/bin/env python3
     import http.server
     import os
+    import threading
     import time
 
     time.sleep(5)
@@ -26,5 +27,7 @@ data:
             return Handler(*args, directory=ROOT, **kwargs)
 
         with http.server.ThreadingHTTPServer(("", PORT), handler) as httpd:
+            # Stop the server automatically after 30 seconds to pause responses
+            threading.Timer(30, httpd.shutdown).start()
             httpd.serve_forever()
 
