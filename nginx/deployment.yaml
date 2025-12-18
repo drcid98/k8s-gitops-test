@@ -26,6 +26,12 @@ spec:
               readOnly: true
             - name: python-http-storage
               mountPath: /usr/share/nginx/html/demo
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 6
+            periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /

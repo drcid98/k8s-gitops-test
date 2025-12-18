@@ -28,6 +28,6 @@ data:
 
         with http.server.ThreadingHTTPServer(("", PORT), handler) as httpd:
             # Stop the server automatically after 30 seconds to pause responses
-            threading.Timer(30, httpd.shutdown).start()
+            # threading.Timer(50, httpd.shutdown).start()
             httpd.serve_forever()
 
