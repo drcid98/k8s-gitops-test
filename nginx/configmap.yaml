@@ -7,6 +7,9 @@ data:
     #!/usr/bin/env python3
     import http.server
     import os
+    import time
+
+    time.sleep(3)
 
     PORT = int(os.getenv("PORT", "80"))
     ROOT = "/"
