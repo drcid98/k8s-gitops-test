@@ -16,13 +16,13 @@ spec:
       containers:
         - name: python-http
           image: python:3.11-alpine
-          workingDir: /
-          command: ["python3", "/server.py"]
+          workingDir: /app
+          command: ["python3", "/app/server.py"]
           ports:
             - containerPort: 80
           volumeMounts:
             - name: python-http-config
-              mountPath: /
+              mountPath: /app
               readOnly: true
             - name: python-http-storage
               mountPath: /usr/share/nginx/html/demo
