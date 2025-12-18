@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: python-http-config
+data:
+  server.py: |-
+    #!/usr/bin/env python3
+    import http.server
+    import os
+
+    PORT = int(os.getenv("PORT", "80"))
+    ROOT = "/"
+
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        # Silence noisy access logs; comment out to debug requests
+        def log_message(self, format, *args):
+            return
+
+    if __name__ == "__main__":
+        os.makedirs(ROOT, exist_ok=True)
+
+        def handler(*args, **kwargs):
+            return Handler(*args, directory=ROOT, **kwargs)
+
+        with http.server.ThreadingHTTPServer(("", PORT), handler) as httpd:
+            httpd.serve_forever()
+
