@@ -1,0 +1,17 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: python-http
+  namespace: gloo-system
+spec:
+  virtualHost:
+    domains:
+      - python-http.test.local
+    routes:
+      - matchers:
+          - prefix: /
+        routeAction:
+          kubernetes:
+            serviceName: python-http
+            serviceNamespace: default
+            servicePort: 80
