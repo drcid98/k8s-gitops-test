@@ -12,7 +12,11 @@ spec:
           - prefix: /
         routeAction:
           single:
-            kubernetes:
-              serviceName: python-http
-              serviceNamespace: default
-              servicePort: 80
+            destination:
+              ref:
+                name: python-http
+                namespace: default
+                kind: Service
+                group: ""
+                port:
+                  number: 80
