@@ -1,6 +1,7 @@
 resources:
   - deployment.yaml
   - service.yaml
-  - ingress.yaml
+  # - ingress.yaml
   - pvc.yaml
   - configmap.yaml
+  - virtualservice.yaml
