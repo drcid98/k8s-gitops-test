@@ -11,7 +11,8 @@ spec:
       - matchers:
           - prefix: /
         routeAction:
-          kubernetes:
-            serviceName: python-http
-            serviceNamespace: default
-            servicePort: 80
+          singleDestination:
+            kubernetes:
+              serviceName: python-http
+              serviceNamespace: default
+              servicePort: 80
