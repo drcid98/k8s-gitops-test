@@ -11,7 +11,7 @@ spec:
       - matchers:
           - prefix: /
         routeAction:
-          single:
+          singleDestination:
             upstream:
               name: default-python-http-80
               namespace: gloo-system
