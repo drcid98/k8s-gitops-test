@@ -11,7 +11,8 @@ spec:
       - matchers:
           - prefix: /
         routeAction:
-          singleDestination:
-            upstream:
-              name: default-python-http-80
-              namespace: gloo-system
+          single:
+            kubernetes:
+              serviceName: python-http
+              serviceNamespace: default
+              servicePort: 80
