@@ -12,11 +12,7 @@ spec:
           - prefix: /
         routeAction:
           single:
-            destination:
-              ref:
-                name: python-http
-                namespace: default
-                kind: Service
-                group: ""
-                port:
-                  number: 80
+            kube:
+              serviceName: python-http
+              serviceNamespace: default
+              servicePort: 80
