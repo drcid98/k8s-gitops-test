@@ -24,6 +24,19 @@ spec:
           enabled: false
         kubeResourceMigration:
           enabled: false
+          
+      gatewayProxies:
+        gatewayProxy:
+          podTemplate:
+            volumes:
+              - name: tmp
+                emptyDir: {}
+            containers:
+              gateway-proxy:
+                volumeMounts:
+                  - name: tmp
+                    mountPath: /tmp
+
   syncPolicy:
     automated:
       prune: true
