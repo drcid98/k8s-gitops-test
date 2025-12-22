@@ -4,11 +4,7 @@ metadata:
   name: gloo-edge
   namespace: argocd
 spec:
-  project: default
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: gloo-system
-  source:
+  sources:
   - repoURL: https://storage.googleapis.com/solo-public-helm
     chart: gloo
     targetRevision: 1.19.0
@@ -24,6 +20,7 @@ spec:
           enabled: false
         kubeResourceMigration:
           enabled: false
+          
         gatewayProxies:
           gatewayProxy:
             podTemplate:
@@ -38,7 +35,7 @@ spec:
   - repoURL: https://github.com/drcid98/k8s-gitops-test.git
     targetRevision: main
     path: gloo-edge
-    
+
   syncPolicy:
     automated:
       prune: true
