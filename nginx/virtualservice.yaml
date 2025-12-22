@@ -4,6 +4,12 @@ metadata:
   name: python-http
   namespace: gloo-system
 spec:
+  sslConfig:
+    secretRef:
+      name: python-http-tls
+      namespace: gloo-system
+    sniDomains:
+      - python-http.test.local
   virtualHost:
     domains:
       - python-http.test.local
