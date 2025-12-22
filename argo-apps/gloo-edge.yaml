@@ -4,10 +4,14 @@ metadata:
   name: gloo-edge
   namespace: argocd
 spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gloo-system
   sources:
   - repoURL: https://storage.googleapis.com/solo-public-helm
     chart: gloo
-    targetRevision: 1.19.0
+    targetRevision: 1.20.4
     helm:
       values: |
         gloo:
@@ -20,7 +24,6 @@ spec:
           enabled: false
         kubeResourceMigration:
           enabled: false
-          
         gatewayProxies:
           gatewayProxy:
             podTemplate:
