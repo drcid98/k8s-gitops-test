@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: gloo-system
   source:
-    repoURL: https://storage.googleapis.com/solo-public-helm
+  - repoURL: https://storage.googleapis.com/solo-public-helm
     chart: gloo
     targetRevision: 1.19.0
     helm:
@@ -24,7 +24,6 @@ spec:
           enabled: false
         kubeResourceMigration:
           enabled: false
-
         gatewayProxies:
           gatewayProxy:
             podTemplate:
@@ -36,7 +35,10 @@ spec:
                   volumeMounts:
                     - name: tmp
                       mountPath: /tmp
-
+  - repoURL: https://github.com/drcid98/k8s-gitops-test.git
+    targetRevision: main
+    path: gloo-edge
+    
   syncPolicy:
     automated:
       prune: true
