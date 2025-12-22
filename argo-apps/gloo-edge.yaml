@@ -20,24 +20,16 @@ spec:
         gateway:
           service:
             type: NodePort
+          validation: 
+            enabled: false
         kubeResourceRollout:
           enabled: false
         kubeResourceMigration:
           enabled: false
-        gatewayProxies:
-          gatewayProxy:
-            podTemplate:
-              volumes:
-                - name: tmp
-                  emptyDir: {}
-              containers:
-                envoy:
-                  volumeMounts:
-                    - name: tmp
-                      mountPath: /tmp
-  - repoURL: https://github.com/drcid98/k8s-gitops-test.git
-    targetRevision: main
-    path: gloo-edge
+
+  # - repoURL: https://github.com/drcid98/k8s-gitops-test.git
+  #   targetRevision: main
+  #   path: gloo-edge
 
   syncPolicy:
     automated:
