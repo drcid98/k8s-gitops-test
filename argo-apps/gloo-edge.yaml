@@ -19,7 +19,7 @@ spec:
             enabled: true
         gateway:
           service:
-            type: LoadBalancer
+            type: NodePort
   syncPolicy:
     automated:
       prune: true
