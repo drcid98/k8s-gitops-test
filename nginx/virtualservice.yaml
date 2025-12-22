@@ -12,7 +12,6 @@ spec:
           - prefix: /
         routeAction:
           single:
-            kube:
-              serviceName: python-http
-              serviceNamespace: default
-              servicePort: 80
+            upstream:
+              name: default-python-http-80
+              namespace: gloo-system
