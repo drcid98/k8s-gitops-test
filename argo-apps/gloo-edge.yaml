@@ -20,6 +20,10 @@ spec:
         gateway:
           service:
             type: NodePort
+        kubeResourceRollout:
+          enabled: false
+        kubeResourceMigration:
+          enabled: false
   syncPolicy:
     automated:
       prune: true
