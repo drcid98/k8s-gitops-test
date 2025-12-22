@@ -32,7 +32,7 @@ spec:
                 - name: tmp
                   emptyDir: {}
               containers:
-                gateway-proxy:
+                envoy:
                   volumeMounts:
                     - name: tmp
                       mountPath: /tmp
