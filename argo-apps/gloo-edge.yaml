@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gloo-edge
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gloo-system
+  source:
+    repoURL: https://storage.googleapis.com/solo-public-helm
+    chart: gloo
+    targetRevision: 1.20.5
+    helm:
+      values: |
+        gloo:
+          gateway:
+            enabled: true
+        gateway:
+          service:
+            type: LoadBalancer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
