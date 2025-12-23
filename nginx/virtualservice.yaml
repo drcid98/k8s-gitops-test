@@ -10,6 +10,7 @@ spec:
       namespace: gloo-system
     sniDomains:
       - python-http.test.local
+    oneWayTls: true
   virtualHost:
     domains:
       - python-http.test.local

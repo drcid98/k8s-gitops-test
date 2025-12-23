@@ -27,10 +27,6 @@ spec:
         kubeResourceMigration:
           enabled: false
 
-  # - repoURL: https://github.com/drcid98/k8s-gitops-test.git
-  #   targetRevision: main
-  #   path: gloo-edge
-
   syncPolicy:
     automated:
       prune: true
