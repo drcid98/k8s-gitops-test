@@ -8,5 +8,7 @@ spec:
     - default
     - odoo
     - gloo-system
+  discovery:
+    fdsMode: WHITELIST
   gateway:
     enableGatewayController: true

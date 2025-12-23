@@ -22,6 +22,8 @@ spec:
             type: NodePort
           validation: 
             enabled: false
+        discovery:
+          enabled: true
         kubeResourceRollout:
           enabled: false
         kubeResourceMigration:
