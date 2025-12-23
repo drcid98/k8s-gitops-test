@@ -6,7 +6,10 @@ metadata:
 spec:
   gateway:
     enableGatewayController: true
-    discoveryNamespaces:
-      - default
-      - gloo-system
-      - odoo
+  discoveryNamespaces:
+    - default
+    - gloo-system
+    - odoo
+    - argocd
+    - cert-manager
+  
