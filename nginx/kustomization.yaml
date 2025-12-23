@@ -5,4 +5,4 @@ resources:
   - pvc.yaml
   - configmap.yaml
   - virtualservice.yaml
-  - certificate-python-http.yaml
+  # - certificate-python-http.yaml
