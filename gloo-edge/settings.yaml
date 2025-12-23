@@ -4,12 +4,9 @@ metadata:
   name: default
   namespace: gloo-system
 spec:
+  watchNamespaces:
+    - default
+    - odoo
+    - gloo-system
   gateway:
     enableGatewayController: true
-  discoveryNamespaces:
-    - default
-    - gloo-system
-    - odoo
-    - argocd
-    - cert-manager
-  
